@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<title>WIN100% — Design Guideline (Edition 2)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:ital,wght@0,600;0,700;0,800;1,800&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05080f; --elev:#0a0f1a; --card:#0f1623; --card-hi:#161f30;
+  --line:rgba(160,210,255,.08); --line-hi:rgba(160,210,255,.16);
+  --text:#eaf5ff; --mid:rgba(234,245,255,.66); --dim:rgba(234,245,255,.4);
+  --accent:#2f7bff; --accent-2:#5b9dff; --accent-3:#8fbaff; --ink:#eaf2ff;
+  --live:#ff3b3b; --neg:#ef4444; --gold:#facc15;
+  --zh:'Noto Sans TC',sans-serif; --disp:'Sora',sans-serif;
+  --grot:'Space Grotesk',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--zh);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+/* fixed left sidebar */
+.side{position:fixed;top:0;left:0;bottom:0;z-index:30;width:236px;display:flex;flex-direction:column;gap:4px;padding:26px 18px;
+  background:rgba(5,8,15,.82);backdrop-filter:blur(16px) saturate(140%);border-right:1px solid var(--line);overflow-y:auto;}
+.logo{font-family:var(--disp);font-weight:800;font-style:italic;font-size:24px;letter-spacing:-.02em;margin-bottom:4px;}
+.logo .n{font-style:normal;color:var(--accent);}.logo .p{color:var(--accent-3);}
+.side .ver{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--dim);margin-bottom:22px;}
+.side nav{display:flex;flex-direction:column;gap:2px;}
+.side nav a{display:flex;gap:10px;align-items:baseline;white-space:nowrap;font-size:13.5px;font-weight:500;color:var(--mid);text-decoration:none;padding:9px 12px;border-radius:9px;transition:.15s;}
+.side nav a:hover{color:var(--text);background:rgba(255,255,255,.05);}
+.side nav a .i{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:20px;}
+.side-foot{margin-top:auto;padding-top:20px;font-family:var(--mono);font-size:10.5px;color:var(--dim);line-height:1.8;}
+
+.wrap{max-width:1000px;margin-left:236px;padding:0 56px;}
+
+/* hero — big editorial */
+.hero{padding:96px 0 60px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 60% 50% at 80% -10%,color-mix(in oklch,var(--accent) 16%,transparent),transparent 60%);}
+.hero .ey{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent-2);margin-bottom:22px;}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(48px,8vw,104px);line-height:.96;letter-spacing:-.035em;margin-bottom:24px;}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero .sub{color:var(--mid);font-size:18px;max-width:600px;}
+.hero .stats{display:flex;gap:0;margin-top:48px;border:1px solid var(--line);border-radius:16px;overflow:hidden;flex-wrap:wrap;}
+.hero .stat{flex:1;min-width:140px;padding:20px 24px;border-right:1px solid var(--line);}
+.hero .stat:last-child{border-right:0;}
+.hero .stat .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+.hero .stat .v{font-family:var(--disp);font-size:24px;font-weight:700;margin-top:6px;}
+.hero .stat .v.ac{color:var(--accent);}
+
+/* chapter divider */
+.chap{display:flex;align-items:flex-end;gap:24px;padding:80px 0 32px;border-bottom:2px solid var(--line-hi);margin-bottom:44px;}
+.chap .num{font-family:var(--disp);font-weight:800;font-size:clamp(60px,10vw,120px);line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px var(--line-hi);}
+.chap .tx h2{font-family:var(--disp);font-weight:700;font-size:34px;letter-spacing:-.02em;}
+.chap .tx p{color:var(--mid);margin-top:6px;max-width:560px;}
+section{padding-bottom:40px;}
+h3{font-family:var(--disp);font-weight:600;font-size:18px;margin:38px 0 16px;}
+h3:first-of-type{margin-top:0;}
+.note{color:var(--mid);font-size:13.5px;}
+code{font-family:var(--mono);font-size:.85em;background:var(--card-hi);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--accent-2);}
+strong{color:var(--text);}
+
+/* principles — numbered list rows */
+.prow{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:22px 0;border-top:1px solid var(--line);align-items:start;}
+.prow .pn{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px;}
+.prow h4{font-family:var(--disp);font-size:18px;font-weight:600;margin-bottom:6px;}
+.prow p{color:var(--mid);font-size:14px;}
+
+/* color */
+.sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.sw{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--card);}
+.sw .c{height:80px;}
+.sw .m{padding:11px 13px;}
+.sw .nm{font-weight:600;font-size:13px;}
+.sw .v{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:3px;}
+.sw .v b{color:var(--mid);font-weight:400;}
+.grads{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
+.gr{height:88px;border-radius:13px;border:1px solid var(--line);display:flex;align-items:flex-end;padding:11px;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.9);}
+
+/* type */
+.fonts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:30px;}
+.fc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:22px;}
+.fc .big{font-size:40px;line-height:1;margin-bottom:12px;}
+.fc .nm{font-weight:700;font-size:14px;}.fc .r{font-size:12px;color:var(--dim);margin-top:4px;}
+.trow{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-top:1px solid var(--line);}
+.trow .l{flex:0 0 168px;font-family:var(--mono);font-size:11px;color:var(--dim);}
+.trow .e{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+
+/* spacing */
+.scale{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;}
+.sb{background:linear-gradient(135deg,var(--accent),var(--accent-3));border-radius:5px;margin-bottom:7px;}
+.si{text-align:center;}.si .v{font-family:var(--mono);font-size:11px;color:var(--dim);}
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.ri{background:var(--card);border:1px solid var(--line);padding:22px;text-align:center;font-family:var(--mono);font-size:13px;}
+.ri .v{font-size:11px;color:var(--dim);margin-top:8px;}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);font-weight:500;}
+td.k{font-family:var(--mono);color:var(--accent-2);font-size:12px;}
+td.v{font-family:var(--mono);color:var(--mid);font-size:12px;}
+
+/* components */
+.comp{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:14px;}
+.comp h4{font-family:var(--grot);font-size:16px;font-weight:600;margin-bottom:4px;}
+.comp .d{color:var(--dim);font-size:13px;margin-bottom:18px;}
+.demo{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.btn{border:1px solid var(--line-hi);background:linear-gradient(180deg,var(--card-hi),var(--card));color:var(--text);padding:9px 18px;border-radius:12px;font-weight:600;font-size:13px;font-family:var(--zh);cursor:pointer;}
+.btn.pri{border:1.5px solid var(--accent);background:radial-gradient(ellipse 80% 60% at 50% 50%,color-mix(in oklch,var(--accent) 28%,var(--elev)),var(--elev) 75%),var(--elev);color:#fff;box-shadow:0 0 0 4px color-mix(in oklch,var(--accent) 14%,transparent),0 0 20px color-mix(in oklch,var(--accent) 48%,transparent);}
+.chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--elev);color:var(--mid);font-size:13px;font-weight:600;}
+.chip.on{border:1.5px solid var(--accent);color:#fff;background:radial-gradient(ellipse 80% 60% at 50% 50%,color-mix(in oklch,var(--accent) 26%,var(--elev)),var(--elev) 75%),var(--elev);}
+.gc{width:150px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
+.gc .art{aspect-ratio:.74;background:linear-gradient(135deg,color-mix(in oklch,var(--accent) 42%,#0a0e16),#0a0e16);position:relative;}
+.gc .art::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0 1px,transparent 1px 9px);}
+.gc .art .tg{position:absolute;top:8px;left:8px;font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 7px;border-radius:5px;background:var(--accent);color:var(--ink);}
+.gc .m{padding:9px 11px;}.gc .t{font-weight:600;font-size:13px;}.gc .pr{font-family:var(--mono);font-size:11px;color:var(--dim);}
+.bdg{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;}
+.bdg.lv{background:color-mix(in oklch,var(--live) 18%,var(--card));color:var(--live);border:1px solid color-mix(in oklch,var(--live) 40%,transparent);}
+.bdg.nw{background:var(--accent);color:var(--ink);}
+.bdg.wn{background:color-mix(in oklch,var(--accent) 16%,var(--card));color:var(--accent-2);border:1px solid color-mix(in oklch,var(--accent) 35%,transparent);}
+.fld{background:var(--card);border:1px solid var(--line-hi);border-radius:10px;padding:11px 14px;color:var(--text);font:inherit;font-size:13px;outline:none;min-width:220px;}
+.fld:focus{border-color:var(--accent);}
+
+/* do/dont */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.dcard{border-radius:14px;padding:22px;border:1px solid var(--line);}
+.dcard.do{background:color-mix(in oklch,var(--accent) 9%,var(--card));border-color:color-mix(in oklch,var(--accent) 30%,transparent);}
+.dcard.no{background:color-mix(in oklch,var(--neg) 9%,var(--card));border-color:color-mix(in oklch,var(--neg) 30%,transparent);}
+.dcard h5{font-family:var(--mono);font-size:12px;letter-spacing:.05em;margin-bottom:12px;}
+.dcard.do h5{color:var(--accent-2);}.dcard.no h5{color:var(--neg);}
+.dcard ul{padding-left:18px;color:var(--mid);font-size:13.5px;}.dcard li{margin-bottom:7px;}
+
+footer{padding:60px 0 80px;text-align:center;color:var(--dim);font-size:13px;border-top:1px solid var(--line);margin-top:40px;}
+
+@media(max-width:820px){
+  .side{position:static;width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px;border-right:0;border-bottom:1px solid var(--line);padding:14px 18px;}
+  .side .ver,.side-foot{display:none;}
+  .logo{margin:0 12px 0 0;}
+  .side nav{flex-direction:row;flex-wrap:wrap;gap:2px;}
+  .side nav a{padding:6px 10px;font-size:12px;}.side nav a .i{display:none;}
+  .wrap{margin-left:0;padding:0 20px;}
+  .sw-grid{grid-template-columns:repeat(2,1fr);}
+  .fonts,.grads,.rgrid,.dd{grid-template-columns:1fr;}
+  .chap{flex-direction:column;align-items:flex-start;gap:10px;padding-top:56px;}
+  .trow{flex-direction:column;gap:4px;}.trow .l{flex:none;}
+  .prow{grid-template-columns:44px 1fr;gap:14px;}
+}
+@media print{.side{display:none;}.wrap{margin-left:0;}body{background:#fff;}}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#05080f">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#05080f"/>
+    <text x="600" y="430" text-anchor="middle" font-family="Sora,sans-serif" font-weight="800" font-style="italic" font-size="150" fill="#eaf5ff">WIN<tspan fill="#2f7bff" font-style="normal">100</tspan><tspan fill="#8fbaff" font-size="100" dy="-44">%</tspan></text>
+    <text x="600" y="510" text-anchor="middle" font-family="monospace" font-size="30" letter-spacing="16" fill="#5b9dff">DESIGN GUIDELINE</text>
+  </svg>
+</template>
+
+<aside class="side">
+  <span class="logo">WIN<span class="n">100</span><span class="p">%</span></span>
+  <span class="ver">DESIGN GUIDELINE</span>
+  <nav>
+    <a href="#principles"><span class="i">01</span>原則</a>
+    <a href="#color"><span class="i">02</span>色彩</a>
+    <a href="#type"><span class="i">03</span>字體</a>
+    <a href="#spacing"><span class="i">04</span>間距</a>
+    <a href="#elevation"><span class="i">05</span>層次</a>
+    <a href="#components"><span class="i">06</span>元件</a>
+    <a href="#motion"><span class="i">07</span>動效</a>
+    <a href="#layout"><span class="i">08</span>版面</a>
+    <a href="#voice"><span class="i">09</span>語氣</a>
+    <a href="#a11y"><span class="i">10</span>無障礙</a>
+  </nav>
+  <div class="side-foot">cms_v3.0<br>更新 2026.06<br>主色 #2F7BFF</div>
+</aside>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="ey">Design Guideline · Edition 2 · 2026.06</div>
+    <h1>為<em>玩家</em>而生的<br>視覺系統</h1>
+    <p class="sub">WIN100% 加密遊戲平台的完整設計語言 — 深色電競基底、單一霓虹藍主色、寬圓角與嚴謹的字體節奏。</p>
+    <div class="stats">
+      <div class="stat"><div class="k">主色</div><div class="v ac">#2F7BFF</div></div>
+      <div class="stat"><div class="k">主題</div><div class="v">深 / 淺</div></div>
+      <div class="stat"><div class="k">字型家族</div><div class="v">3</div></div>
+      <div class="stat"><div class="k">最大寬</div><div class="v">1440</div></div>
+      <div class="stat"><div class="k">章節</div><div class="v">10</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 01 -->
+<div class="chap" id="principles"><div class="num">01</div><div class="tx"><h2>設計原則</h2><p>六條核心原則統御每一個畫面。決策模糊時,回到這裡。</p></div></div>
+<section>
+  <div class="prow"><div class="pn">01</div><div><h4>單一主色,謹慎使用</h4><p>單一霓虹藍(<code>#2F7BFF</code>)承載所有強調 — CTA、選中狀態、中獎。絕不引入競爭品牌色,克制讓藍色讀作「前進」。</p></div></div>
+  <div class="prow"><div class="pn">02</div><div><h4>暗色優先,淺色對等</h4><p>原生畫布為近黑深藍。淺色模式完整支援,但是扁平、無光暈的轉譯 — 絕非單純反相。</p></div></div>
+  <div class="prow"><div class="pn">03</div><div><h4>光暈只屬於暗色</h4><p>霓虹綻放、內發光、文字陰影只保留給暗色模式。淺色中每處光暈改為乾淨扁平陰影或銳利 1.5px 描邊。</p></div></div>
+  <div class="prow"><div class="pn">04</div><div><h4>大圓角,緊字距</h4><p>14–28px 柔和圓角帶來高級而親和的質感;標題字距收緊營造自信而有能量的語氣。</p></div></div>
+  <div class="prow"><div class="pn">05</div><div><h4>數據用等寬,語氣用無襯線</h4><p>任何玩家可操作的數字 — 餘額、賠率、倍數、ID、倒數 — 一律等寬。內文與標籤用人文無襯線。</p></div></div>
+  <div class="prow"><div class="pn">06</div><div><h4>拒絕資訊雜訊</h4><p>每個數據都必須有存在的理由。沒有裝飾性數字、沒有填充徽章。密度服務掃讀,而非裝飾。</p></div></div>
+</section>
+
+<!-- 02 -->
+<div class="chap" id="color"><div class="num">02</div><div class="tx"><h2>色彩系統</h2><p>Token 只在 <code>:root</code> 定義一次,經 <code>[data-theme]</code> 切換。永遠引用 token。</p></div></div>
+<section>
+  <h3>表面色(暗色)</h3>
+  <div class="sw-grid">
+    <div class="sw"><div class="c" style="background:#05080f"></div><div class="m"><div class="nm">背景</div><div class="v"><b>--bg</b> · #05080F</div></div></div>
+    <div class="sw"><div class="c" style="background:#0a0f1a"></div><div class="m"><div class="nm">浮起</div><div class="v"><b>--bg-elev</b> · #0A0F1A</div></div></div>
+    <div class="sw"><div class="c" style="background:#0f1623"></div><div class="m"><div class="nm">卡片</div><div class="v"><b>--bg-card</b> · #0F1623</div></div></div>
+    <div class="sw"><div class="c" style="background:#161f30"></div><div class="m"><div class="nm">卡片亮</div><div class="v"><b>--bg-card-hi</b> · #161F30</div></div></div>
+  </div>
+  <h3>主色與狀態色</h3>
+  <div class="sw-grid">
+    <div class="sw"><div class="c" style="background:#2f7bff"></div><div class="m"><div class="nm">主色</div><div class="v"><b>--accent</b> · #2F7BFF</div></div></div>
+    <div class="sw"><div class="c" style="background:#5b9dff"></div><div class="m"><div class="nm">主色 2</div><div class="v"><b>--accent-2</b> · #29E8A3</div></div></div>
+    <div class="sw"><div class="c" style="background:#8fbaff"></div><div class="m"><div class="nm">主色 3</div><div class="v"><b>--accent-3</b> · #B6F37C</div></div></div>
+    <div class="sw"><div class="c" style="background:#eaf2ff"></div><div class="m"><div class="nm">主色墨</div><div class="v"><b>--accent-ink</b> · #EAF2FF</div></div></div>
+    <div class="sw"><div class="c" style="background:#ff3b3b"></div><div class="m"><div class="nm">直播</div><div class="v"><b>--live</b> · #FF3B3B</div></div></div>
+    <div class="sw"><div class="c" style="background:#ef4444"></div><div class="m"><div class="nm">負向</div><div class="v"><b>--neg</b> · #EF4444</div></div></div>
+    <div class="sw"><div class="c" style="background:#facc15"></div><div class="m"><div class="nm">金幣 / 數值</div><div class="v">#FACC15</div></div></div>
+    <div class="sw"><div class="c" style="background:linear-gradient(135deg,#fde68a,#facc15,#f59e0b)"></div><div class="m"><div class="nm">流水 Rollover</div><div class="v">金色漸層</div></div></div>
+  </div>
+  <h3>文字與線條</h3>
+  <div class="sw-grid">
+    <div class="sw"><div class="c" style="background:#eaf5ff"></div><div class="m"><div class="nm">文字</div><div class="v"><b>--text</b> · #EAF5FF</div></div></div>
+    <div class="sw"><div class="c" style="background:rgba(234,245,255,.66)"></div><div class="m"><div class="nm">文字中</div><div class="v"><b>--text-mid</b> · 66%</div></div></div>
+    <div class="sw"><div class="c" style="background:rgba(234,245,255,.4)"></div><div class="m"><div class="nm">文字弱</div><div class="v"><b>--text-dim</b> · 40%</div></div></div>
+    <div class="sw"><div class="c" style="background:rgba(160,210,255,.16)"></div><div class="m"><div class="nm">線條</div><div class="v"><b>--line-hi</b> · 16%</div></div></div>
+  </div>
+  <h3>招牌漸層</h3>
+  <div class="grads">
+    <div class="gr" style="background:linear-gradient(135deg,color-mix(in oklch,#2f7bff 100%,white 20%),#2f7bff 38%,color-mix(in oklch,#2f7bff 78%,#000))">--accent-grad</div>
+    <div class="gr" style="background:radial-gradient(ellipse 80% 60% at 50% 50%,color-mix(in oklch,#2f7bff 28%,#0a0f1a),#0a0f1a 75%)">按鈕核心(徑向)</div>
+    <div class="gr" style="background:linear-gradient(135deg,color-mix(in oklch,#2f7bff 42%,#0a0e16),#0a0e16)">遊戲卡假圖</div>
+  </div>
+  <p class="note" style="margin-top:18px">淺色主題僅覆寫表面與文字 token,主色不變。背景 <code>#F4F3EF</code>、卡片 <code>#FFFFFF</code>、文字 <code>#0F0F17</code>。<strong>所有光暈一律移除</strong>。</p>
+</section>
+
+<!-- 03 -->
+<div class="chap" id="type"><div class="num">03</div><div class="tx"><h2>字體排印</h2><p>三套字型,各司其職,絕不混用角色。</p></div></div>
+<section>
+  <div class="fonts">
+    <div class="fc"><div class="big" style="font-family:var(--grot)">Aa</div><div class="nm">Space Grotesk</div><div class="r">展示 · 標題 · 價格 · 品牌。字重 500–700,字距 −0.01 至 −0.03em。</div></div>
+    <div class="fc"><div class="big" style="font-family:var(--zh)">介面</div><div class="nm">Noto Sans TC / Inter</div><div class="r">內文 · 標籤 · 按鈕 · 導覽。中英預設介面字。</div></div>
+    <div class="fc"><div class="big" style="font-family:var(--mono)">A1</div><div class="nm">JetBrains Mono</div><div class="r">數據 · 餘額 · 賠率 · ID · 倒數 · 標籤。等寬數字。</div></div>
+  </div>
+  <h3>字級階層</h3>
+  <div class="trow"><div class="l">Hero / 48–104px · 800</div><div class="e" style="font-family:var(--disp);font-size:40px;font-weight:800;letter-spacing:-.03em">Unlock the Vault</div></div>
+  <div class="trow"><div class="l">章節 / 34px · 700</div><div class="e" style="font-family:var(--disp);font-size:30px;font-weight:700;letter-spacing:-.02em">即時賽事 Tournaments</div></div>
+  <div class="trow"><div class="l">卡片標題 / 22px · 700</div><div class="e" style="font-family:var(--grot);font-size:22px;font-weight:700">Saturday Slot Race</div></div>
+  <div class="trow"><div class="l">內文 / 15px · 400</div><div class="e" style="font-size:15px">公平可驗證、即時結算 — 為在意數學的玩家打造。</div></div>
+  <div class="trow"><div class="l">標籤 / 13px · 600</div><div class="e" style="font-size:13px;font-weight:600">存款 · 提款 · 優惠</div></div>
+  <div class="trow"><div class="l">等寬數據 / 14px</div><div class="e" style="font-family:var(--mono);font-size:14px;color:var(--accent-2)">1,284.32 USDT · x248.50</div></div>
+  <div class="trow"><div class="l">眉標 / 11px · mono</div><div class="e" style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)">WEEKLY DROP · ENDS 2D 14H</div></div>
+</section>
+
+<!-- 04 -->
+<div class="chap" id="spacing"><div class="num">04</div><div class="tx"><h2>間距與圓角</h2><p>間距遵循 4 的節奏。元件以 flex/grid 的 gap 排版。</p></div></div>
+<section>
+  <h3>間距尺度(px)</h3>
+  <div class="scale">
+    <div class="si"><div class="sb" style="width:4px;height:4px"></div><div class="v">4</div></div>
+    <div class="si"><div class="sb" style="width:8px;height:8px"></div><div class="v">8</div></div>
+    <div class="si"><div class="sb" style="width:12px;height:12px"></div><div class="v">12</div></div>
+    <div class="si"><div class="sb" style="width:16px;height:16px"></div><div class="v">16</div></div>
+    <div class="si"><div class="sb" style="width:22px;height:22px"></div><div class="v">22</div></div>
+    <div class="si"><div class="sb" style="width:28px;height:28px"></div><div class="v">28</div></div>
+    <div class="si"><div class="sb" style="width:44px;height:44px"></div><div class="v">44</div></div>
+    <div class="si"><div class="sb" style="width:64px;height:64px"></div><div class="v">64</div></div>
+  </div>
+  <p class="note" style="margin-top:16px">卡片內距 <strong>14–22px</strong>、橫向列間距 <strong>12px</strong>、區段節奏 <strong>44–64px</strong>。點擊目標不小於 <strong>44px</strong>。</p>
+  <h3>圓角</h3>
+  <div class="rgrid">
+    <div class="ri" style="border-radius:8px">8px<div class="v">標籤 · chip 內層</div></div>
+    <div class="ri" style="border-radius:14px">14px<div class="v">--radius · 卡片</div></div>
+    <div class="ri" style="border-radius:20px">20px<div class="v">--radius-lg · 面板</div></div>
+    <div class="ri" style="border-radius:28px">28px<div class="v">--radius-xl · Hero/彈窗</div></div>
+  </div>
+  <p class="note" style="margin-top:14px">藥丸使用 <code>999px</code>。頭像使用 50%(圓)或 14px(圓角方)。</p>
+</section>
+
+<!-- 05 -->
+<div class="chap" id="elevation"><div class="num">05</div><div class="tx"><h2>層次與光暈</h2><p>深度優先以細線邊框表達,其次陰影,最後 — 僅暗色 — 主色光暈。</p></div></div>
+<section>
+  <table>
+    <tr><th>層級</th><th>暗色</th><th>淺色</th><th>用途</th></tr>
+    <tr><td class="k">flat</td><td class="v">1px --line 邊框</td><td class="v">1px --line 邊框</td><td>卡片、列表列</td></tr>
+    <tr><td class="k">raised</td><td class="v">0 6px 18px rgba(0,0,0,.4)</td><td class="v">0 4px 14px rgba(15,15,23,.08)</td><td>hover 卡片、下拉</td></tr>
+    <tr><td class="k">accent</td><td class="v">描邊環 + 20px 綻放</td><td class="v">0 0 0 1.5px 主色(無綻放)</td><td>主要 CTA、選中分頁</td></tr>
+    <tr><td class="k">modal</td><td class="v">0 16px 50px rgba(0,0,0,.6)</td><td class="v">0 12px 32px rgba(15,15,23,.14)</td><td>對話框、登入</td></tr>
+  </table>
+  <p class="note" style="margin-top:16px"><strong>關鍵規則:</strong>任何帶主色綻放的 <code>box-shadow</code> 與每個 <code>text-shadow</code>,都必須在 <code>[data-theme="light"]</code> 下中和。</p>
+</section>
+
+<!-- 06 -->
+<div class="chap" id="components"><div class="num">06</div><div class="tx"><h2>元件庫</h2><p>核心構件與其標準狀態。</p></div></div>
+<section>
+  <div class="comp"><h4>按鈕 Buttons</h4><p class="d">主要 = 主色徑向核心 + 1.5px 邊框 + 光暈(暗色)。次要 = 卡片漸層 + 細線。幽靈 = 透明。</p>
+    <div class="demo"><button class="btn pri">存款 →</button><button class="btn">提款</button><button class="btn" style="background:transparent">登入</button></div></div>
+  <div class="comp"><h4>藥丸與分頁</h4><p class="d">分類分頁、篩選 chip 與導覽項共用同一套藥丸語言。選中 = 主色核心;閒置 = 細線。</p>
+    <div class="demo"><span class="chip on">全部</span><span class="chip">最愛</span><span class="chip">Saba</span><span class="chip">Bti</span></div></div>
+  <div class="comp"><h4>遊戲卡 Game Card</h4><p class="d">比例 <code>0.74</code> 假圖,對角條紋、主色漸層、角落標籤、hover 顯示愛心與置中播放鍵。</p>
+    <div class="demo"><div class="gc"><div class="art"><span class="tg">HOT</span></div><div class="m"><div class="t">Neon Vault</div><div class="pr">Saba</div></div></div><div class="gc"><div class="art"></div><div class="m"><div class="t">Crash 100</div><div class="pr">Bti</div></div></div></div></div>
+  <div class="comp"><h4>徽章與標籤</h4><p class="d">等寬、大寫、11px。直播 = 紅、新 = 實心主色、中獎 = 主色淡底。</p>
+    <div class="demo"><span class="bdg lv"><span style="width:6px;height:6px;border-radius:50%;background:var(--live);display:inline-block"></span>LIVE 34'</span><span class="bdg nw">NEW</span><span class="bdg wn">+1,284.50</span></div></div>
+  <div class="comp"><h4>輸入框 Inputs</h4><p class="d">卡片填色、細線邊框、10px 圓角。focus 時邊框升為主色。</p>
+    <div class="demo"><input class="fld" placeholder="搜尋任何遊戲或廠商" /><input class="fld" value="player@100.gg" /></div></div>
+</section>
+
+<!-- 07 -->
+<div class="chap" id="motion"><div class="num">07</div><div class="tx"><h2>動效</h2><p>動效快速而功能性 — 是回饋,不是表演。</p></div></div>
+<section>
+  <table>
+    <tr><th>Token</th><th>值</th><th>用途</th></tr>
+    <tr><td class="k">micro</td><td class="v">.15s ease</td><td>hover 顏色/邊框、chip、圖示</td></tr>
+    <tr><td class="k">lift</td><td class="v">transform .2s</td><td>卡片 hover translateY(−3px)</td></tr>
+    <tr><td class="k">enter</td><td class="v">.25s cubic-bezier(.22,.9,.3,1.1)</td><td>彈窗、抽屜、下拉</td></tr>
+    <tr><td class="k">pulse</td><td class="v">1.6s infinite</td><td>僅限直播紅點</td></tr>
+    <tr><td class="k">ribbon</td><td class="v">38s linear loop</td><td>優惠跑馬燈</td></tr>
+    <tr><td class="k">spin</td><td class="v">.7s linear</td><td>餘額刷新回饋</td></tr>
+  </table>
+  <p class="note" style="margin-top:16px">無限循環只保留給直播指示與優惠跑馬燈。進場動畫尊重 <code>prefers-reduced-motion</code>。</p>
+</section>
+
+<!-- 08 -->
+<div class="chap" id="layout"><div class="num">08</div><div class="tx"><h2>版面與響應式</h2><p>固定左側欄 + 流體內容,最大寬 1440px。</p></div></div>
+<section>
+  <table>
+    <tr><th>斷點</th><th>行為</th></tr>
+    <tr><td class="k">≥ 1100px</td><td class="v">完整版面。側欄 248px(可摺疊 64px)。優惠/廠商 4 欄。</td></tr>
+    <tr><td class="k">900–1100px</td><td class="v">Hero 文字滿寬;篩選列堆疊;2 欄格;排行榜單欄。</td></tr>
+    <tr><td class="k">≤ 900px</td><td class="v">側欄變全寬抽屜由 Browse 開啟;底部分頁列;分類分頁橫向捲動。</td></tr>
+    <tr><td class="k">≤ 560px</td><td class="v">頂部餘額堆疊;logo 縮小;全部單欄。</td></tr>
+  </table>
+</section>
+
+<!-- 09 -->
+<div class="chap" id="voice"><div class="num">09</div><div class="tx"><h2>語氣與文案</h2><p>自信、快速、玩家優先。介面以英文為主,句首大寫。</p></div></div>
+<section>
+  <div class="dd">
+    <div class="dcard do"><h5>DO 應該</h5><ul><li>以玩家成果開頭:「Unlock the Vault」。</li><li>每個可操作數字都用等寬。</li><li>標籤保持 1–2 字:Deposit、Withdrawal。</li><li>倒數以 <code>2d 14h</code> 呈現。</li></ul></div>
+    <div class="dcard no"><h5>DON'T 避免</h5><ul><li>混用語言 — 介面字串維持英文。</li><li>用裝飾數據或填充徽章塞滿畫面。</li><li>用 emoji 當介面圖示。</li><li>過度承諾與空泛炒作字眼。</li></ul></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<div class="chap" id="a11y"><div class="num">10</div><div class="tx"><h2>無障礙</h2><p>對比與清晰度在兩種主題下都不可妥協。</p></div></div>
+<section>
+  <table>
+    <tr><th>規則</th><th>要求</th></tr>
+    <tr><td class="k">主色上文字</td><td class="v">用 --accent-ink(#EAF2FF)或 #fff — 絕不用中灰。對比 ≥ 4.5:1。</td></tr>
+    <tr><td class="k">選中態文字</td><td class="v">淺色:淡白藥丸上用深墨字,光暈不可洗白標籤。</td></tr>
+    <tr><td class="k">點擊目標</td><td class="v">手機 ≥ 44×44px。</td></tr>
+    <tr><td class="k">直播指示</td><td class="v">不可僅靠顏色 — 紅點需搭配「LIVE」文字。</td></tr>
+    <tr><td class="k">focus</td><td class="v">每個輸入/控件 focus 都有可見主色邊框。</td></tr>
+    <tr><td class="k">圖示</td><td class="v">永遠搭配文字標籤或 aria-label。</td></tr>
+  </table>
+</section>
+
+</div>
+
+<footer>
+  WIN<span style="color:var(--accent);font-family:var(--disp);font-style:italic;font-weight:800">100</span><span style="color:var(--accent-3)">%</span> 設計規範 · Edition 2 · 色彩 / 字體 / 間距 / 元件 / 動效的單一真實來源
+</footer>
+
+</body>
+</html>
