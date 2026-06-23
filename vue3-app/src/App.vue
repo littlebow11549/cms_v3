@@ -27,8 +27,21 @@
       />
     </template>
 
+    <!-- Account pages -->
+    <AccountOverview v-if="activeCat === 'Account Overview'"
+      :user="user" :balance="balance"
+      @navigate="activeCat = $event"
+    />
+    <DepositPage v-else-if="activeCat === 'DepositForm'"
+      @navigate="activeCat = $event"
+    />
+    <WithdrawalPage v-else-if="activeCat === 'WithdrawalForm'"
+      :user="user"
+      @navigate="activeCat = $event"
+    />
+
     <!-- 首頁區塊 -->
-    <template v-if="activeCat === 'Lobby'">
+    <template v-else-if="activeCat === 'Lobby'">
       <Hero />
       <PromoRibbon v-if="showPromos" />
       <RewardsBanner v-if="user" :user="user" />
@@ -93,7 +106,7 @@
       </div>
     </template>
 
-    <!-- 其他主頁（Phase 5+） -->
+    <!-- 其他主頁 -->
     <div v-else style="color:var(--text);padding:40px 0;font-family:var(--font-display)">
       <h2>{{ activeCat }}</h2>
     </div>
@@ -154,6 +167,9 @@ import Providers              from '@/components/lobby/Providers.vue';
 import GameModal              from '@/components/modal/GameModal.vue';
 import SignInModal            from '@/components/modal/SignInModal.vue';
 import CustomerServiceModal   from '@/components/modal/CustomerServiceModal.vue';
+import AccountOverview        from '@/components/account/AccountOverview.vue';
+import DepositPage            from '@/components/account/DepositPage.vue';
+import WithdrawalPage         from '@/components/account/WithdrawalPage.vue';
 import { GAMES, RECENTLY_PLAYED } from '@/data/index.js';
 
 const openGame          = ref(null);
