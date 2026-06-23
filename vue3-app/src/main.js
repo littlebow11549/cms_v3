@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-// 全域樣式：token（:root）+ layout
 import './assets/layout.css';
+import './assets/main.css';
 
 createApp(App).mount('#app');
