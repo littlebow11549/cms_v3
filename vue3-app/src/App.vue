@@ -164,7 +164,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import AppLayout      from '@/layouts/AppLayout.vue';
 import Sidebar        from '@/components/layout/Sidebar.vue';
 import TopBar         from '@/components/layout/TopBar.vue';
@@ -193,18 +193,23 @@ import SecurityCenter         from '@/components/account/SecurityCenter.vue';
 import CustomerServicePage    from '@/components/account/CustomerServicePage.vue';
 import RecordTable            from '@/components/account/RecordTable.vue';
 import SupportPage            from '@/components/account/SupportPage.vue';
+import { useTweaks }          from '@/composables/useTweaks.js';
 import { GAMES, RECENTLY_PLAYED } from '@/data/index.js';
+
+const { t } = useTweaks();
 
 const openGame          = ref(null);
 const sidebarCollapsed  = ref(false);
 const mobileSidebarOpen = ref(false);
 const activeCat         = ref('Lobby');
 const catTab            = ref('Lobby');
-const showPromos        = ref(true);
 const showSignIn        = ref(false);
 const showSupport       = ref(false);
 const balance           = ref(1284.32);
 const user              = ref(null);
+
+// showPromos 從 tweaks 驅動
+const showPromos = computed(() => t.showPromos);
 
 // 模擬餘額浮動
 let balanceTimer;
