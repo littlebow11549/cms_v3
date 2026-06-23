@@ -33,9 +33,57 @@
       <PromoRibbon v-if="showPromos" />
       <RewardsBanner v-if="user" :user="user" />
       <Promos v-if="showPromos" v-model:active="catTab" />
+
+      <!-- Lobby tab -->
+      <template v-if="catTab === 'Lobby'">
+        <Rail title="Recently played" :games="RECENTLY_PLAYED" :count="RECENTLY_PLAYED.length" @open="openGame = $event" />
+        <Rail title="Slots"       icon="fire" :games="GAMES.slots" @open="openGame = $event" />
+        <Rail title="Live Casino" icon="bolt" :games="GAMES.live"  @open="openGame = $event" />
+        <FilteredGrid @open="openGame = $event" />
+      </template>
+
+      <!-- Hot Games tab -->
+      <CategoryView v-else-if="catTab === 'Hot Games'"
+        title="Hot Games" icon="fire"
+        :games="[...GAMES.slots, ...GAMES.live, ...GAMES.originals]"
+        @open="openGame = $event"
+      />
+
+      <!-- Mini Games tab -->
+      <CategoryView v-else-if="catTab === 'Mini Games'"
+        title="Mini Games" icon="star"
+        :games="GAMES.originals"
+        @open="openGame = $event"
+      />
+
+      <!-- Slots tab -->
+      <CategoryView v-else-if="catTab === 'Slots'"
+        title="Slots" icon="fire"
+        :games="GAMES.slots"
+        @open="openGame = $event"
+      />
+
+      <!-- Live tab -->
+      <CategoryView v-else-if="catTab === 'Live'"
+        title="Live" icon="bolt"
+        :games="GAMES.live"
+        @open="openGame = $event"
+      />
+
+      <!-- Fish tab -->
+      <CategoryView v-else-if="catTab === 'Fish'"
+        title="Fish"
+        :games="GAMES.slots"
+        @open="openGame = $event"
+      />
+
+      <!-- Placeholder tabs (Phase 5) -->
+      <div v-else style="color:var(--text-dim);padding:40px 0;text-align:center;font-family:var(--font-mono);font-size:13px">
+        {{ catTab }} — coming soon
+      </div>
     </template>
 
-    <!-- 其他頁（Phase 4+ 接入） -->
+    <!-- 其他主頁（Phase 5+） -->
     <div v-else style="color:var(--text);padding:40px 0;font-family:var(--font-display)">
       <h2>{{ activeCat }}</h2>
     </div>
@@ -69,7 +117,12 @@ import Hero           from '@/components/home/Hero.vue';
 import PromoRibbon    from '@/components/home/PromoRibbon.vue';
 import RewardsBanner  from '@/components/home/RewardsBanner.vue';
 import Promos         from '@/components/home/Promos.vue';
+import Rail           from '@/components/game/Rail.vue';
+import FilteredGrid   from '@/components/game/FilteredGrid.vue';
+import CategoryView   from '@/components/game/CategoryView.vue';
+import { GAMES, RECENTLY_PLAYED } from '@/data/index.js';
 
+const openGame          = ref(null);
 const sidebarCollapsed  = ref(false);
 const mobileSidebarOpen = ref(false);
 const activeCat         = ref('Lobby');
