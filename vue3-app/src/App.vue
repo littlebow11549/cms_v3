@@ -27,10 +27,17 @@
       />
     </template>
 
-    <!-- 頁面內容（placeholder，Phase 3+ 接入實際頁面） -->
-    <div style="color: var(--text); padding: 24px 0; font-family: var(--font-display)">
-      <h2 style="font-size: 24px; margin-bottom: 8px;">CMS_前台_v3 — Vue 3</h2>
-      <p style="color: var(--text-mid)">Active: <strong>{{ activeCat }}</strong></p>
+    <!-- 首頁區塊 -->
+    <template v-if="activeCat === 'Lobby'">
+      <Hero />
+      <PromoRibbon v-if="showPromos" />
+      <RewardsBanner v-if="user" :user="user" />
+      <Promos v-if="showPromos" v-model:active="catTab" />
+    </template>
+
+    <!-- 其他頁（Phase 4+ 接入） -->
+    <div v-else style="color:var(--text);padding:40px 0;font-family:var(--font-display)">
+      <h2>{{ activeCat }}</h2>
     </div>
 
     <!-- 頁尾 -->
@@ -53,16 +60,21 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import AppLayout   from '@/layouts/AppLayout.vue';
-import Sidebar     from '@/components/layout/Sidebar.vue';
-import TopBar      from '@/components/layout/TopBar.vue';
-import AppFooter   from '@/components/layout/AppFooter.vue';
-import MobileNav   from '@/components/layout/MobileNav.vue';
+import AppLayout      from '@/layouts/AppLayout.vue';
+import Sidebar        from '@/components/layout/Sidebar.vue';
+import TopBar         from '@/components/layout/TopBar.vue';
+import AppFooter      from '@/components/layout/AppFooter.vue';
+import MobileNav      from '@/components/layout/MobileNav.vue';
+import Hero           from '@/components/home/Hero.vue';
+import PromoRibbon    from '@/components/home/PromoRibbon.vue';
+import RewardsBanner  from '@/components/home/RewardsBanner.vue';
+import Promos         from '@/components/home/Promos.vue';
 
 const sidebarCollapsed  = ref(false);
 const mobileSidebarOpen = ref(false);
 const activeCat         = ref('Lobby');
 const catTab            = ref('Lobby');
+const showPromos        = ref(true);
 const showSignIn        = ref(false);
 const showSupport       = ref(false);
 const balance           = ref(1284.32);
